@@ -1,0 +1,26 @@
+[Unit]
+Description=metaserver dashboard
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/metaserver
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=5
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/metaserver
+PrivateTmp=true
+
+# Bind to port 80 without running as root
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+User=metaserver
+Group=metaserver
+
+[Install]
+WantedBy=multi-user.target

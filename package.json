@@ -1,0 +1,12 @@
+{
+  "name": "metaserver",
+  "version": "1.0.0",
+  "description": "Lightweight dashboard for services running on a machine, with live health status",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
