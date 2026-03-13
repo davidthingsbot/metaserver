@@ -152,10 +152,16 @@ function startHealthChecks() {
 
 // --- SSE ---
 
+const HOSTNAME = os.hostname().toLowerCase();
+
+function externalUrl(url) {
+  return url.replace(/localhost/g, HOSTNAME);
+}
+
 function getStatePayload() {
   return services.map((svc) => ({
     name: svc.name,
-    url: svc.url,
+    url: externalUrl(svc.url),
     icon: svc.icon || null,
     description: svc.description || null,
     status: healthStatus.get(svc.name) || 'unknown',

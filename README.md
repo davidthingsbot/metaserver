@@ -82,6 +82,37 @@ Place icon files (PNG, SVG, JPG, WebP) in the `icons/` directory and reference t
 
 The dashboard will be available on port 80. To use a different port, add `Environment=PORT=8080` to the `[Service]` section of the unit file.
 
+## AI / Agents
+
+This section documents how AI assistants should interact with metaserver.
+
+### What you can do autonomously
+
+- **Add a service** — append an entry to `config.yaml`. The server hot-reloads; no restart needed.
+- **Remove a service** — delete its entry from `config.yaml`. Same hot-reload applies.
+- **Edit a service** — change `name`, `url`, `description`, or `icon` in `config.yaml`.
+- **Check if the server is running** — `ss -tlnp | grep <PORT>` or `pgrep -a "node server.js"`.
+- **Start the server** — `cd ~/work/metaserver && PORT=8888 node server.js >> /tmp/metaserver.log 2>&1 &`
+- **Restart the server** — kill the existing process, then start again as above.
+
+### config.yaml format
+
+```yaml
+services:
+  - name: My Service        # display name (required)
+    url: http://localhost:PORT  # used for health check AND the card link (required)
+    description: One-liner  # shown under the name (optional)
+    icon: filename.png      # file in icons/ dir (optional; defaults to colored initial)
+```
+
+**Note on URLs:** Use `localhost` in `config.yaml` — the server automatically substitutes the machine hostname when serving links to remote clients, so health checks stay fast and links work from other machines.
+
+### What to ask a human before doing
+
+- Adding a new icon file to `icons/`
+- Changing the PORT the server listens on
+- Any changes to `server.js`
+
 ## Endpoints
 
 | Path      | Description                              |
